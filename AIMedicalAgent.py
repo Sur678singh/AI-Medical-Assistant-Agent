@@ -2,11 +2,11 @@ from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 from langgraph.graph import StateGraph,START,END
 from typing import TypedDict
-from pydantic import BaseModel
 import easyocr,shutil,os,re
 from fastapi import FastAPI,UploadFile,File,Form
 from fastapi.middleware.cors import CORSMiddleware
-
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 # ************************************* LLM and Load Env ******************************************
 load_dotenv()
@@ -23,6 +23,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
+
+# *********************************Serve Frontend UI****************************
+app.mount("/public",StaticFiles(directory='public'),name='public')
+# get request from server
+@app.get("/")
+def serve_frontend():
+    return FileResponse("public/index.html")
 
 # ************************************* STATE *****************************************************
 class MedicalState(TypedDict):
