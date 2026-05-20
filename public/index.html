@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediAssist - AI Medical Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <div class="logo-icon">✦</div>
+            MediAssist
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Your AI Medical Assistant</h1>
+            <p>Get instant medical insights, analyze prescriptions, and understand your health reports with advanced AI technology.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="scrollToChat()">Start Chat</button>
+                <button class="btn btn-secondary" onclick="scrollToFeatures()">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Tabs -->
+        <div class="tabs-section">
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab(event ,'chat')">Medical Chat</button>
+                <button class="tab" onclick="switchTab(event, 'prescriptions')">Prescriptions</button>
+                <button class="tab" onclick="switchTab(event,'report')">Medical Reports</button>
+            </div>
+
+            <!-- Chat Tab -->
+            <div id="chat" class="content-section active">
+                <div class="chat-container">
+                    <h2 style="margin-bottom: 1rem;">Describe Your Symptoms or Ask Medical Questions</h2>
+                    <div class="chat-input-group">
+                        <textarea id="queryInput" placeholder="Describe your symptoms or ask a medical question..."></textarea>
+                        <div class="input-wrapper">
+                            <label class="file-input-label">
+                                <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.pdf">
+                                📎 Upload Medical Document
+                                <div class="file-name" id="fileName"></div>
+                            </label>
+                            <button class="btn btn-primary submit-btn" onclick="submitChat()">Send</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="chatResponse" class="response-section" style="display: none;">
+                    <div class="response-title">📋 Analysis Result</div>
+                    <div class="response-content" id="chatResponseContent"></div>
+                </div>
+            </div>
+
+            <!-- Prescription Tab -->
+            <div id="prescriptions" class="content-section">
+                <div class="chat-container">
+                    <h2 style="margin-bottom: 1rem;">Upload Your Prescription</h2>
+                    <div class="chat-input-group">
+                        <div class="input-wrapper">
+                            <label class="file-input-label">
+                                <input type="file" id="prescriptionFile" accept=".png,.jpg,.jpeg,.pdf">
+                                📄 Upload Prescription Image
+                                <div class="file-name" id="prescFileName"></div>
+                            </label>
+                            <textarea id="prescriptionQuery" placeholder="Add any additional notes..." style="flex: 1; min-height: 80px;"></textarea>
+                        </div>
+                        <button class="btn btn-primary submit-btn" onclick="submitPrescription()">Analyze</button>
+                    </div>
+                </div>
+
+                <div id="prescriptionResponse" class="response-section" style="display: none;">
+                    <div class="response-title">💊 Prescription Analysis</div>
+                    <div class="response-content" id="prescriptionResponseContent"></div>
+                </div>
+            </div>
+
+            <!-- Reports Tab -->
+            <div id="report" class="content-section">
+                <div class="chat-container">
+                    <h2 style="margin-bottom: 1rem;">Upload Your Medical Report</h2>
+                    <div class="chat-input-group">
+                        <div class="input-wrapper">
+                            <label class="file-input-label">
+                                <input type="file" id="reportFile" accept=".png,.jpg,.jpeg,.pdf">
+                                📊 Upload Medical Report
+                                <div class="file-name" id="reportFileName"></div>
+                            </label>
+                        </div>
+                        <button class="btn btn-primary submit-btn" onclick="submitReport()">Analyze</button>
+                    </div>
+                </div>
+
+                <div id="reportResponse" class="response-section" style="display: none;">
+                    <div class="response-title">📈 Report Explanation</div>
+                    <div class="response-content" id="reportResponseContent"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <section id="features" style="padding: 4rem 0;">
+            <h2 style="text-align: center; font-size: 2rem; margin-bottom: 3rem;">Why Choose MediAssist?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏥</div>
+                    <h3>Symptom Analysis</h3>
+                    <p>Get AI-powered insights into your symptoms with possible conditions and precautions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💊</div>
+                    <h3>Prescription OCR</h3>
+                    <p>Upload prescription images and get instant analysis of medicines and their uses.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Report Analysis</h3>
+                    <p>Upload medical reports and get simple explanations of abnormal values and advice.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Powered</h3>
+                    <p>Advanced language models provide accurate and informative medical insights.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Fast Processing</h3>
+                    <p>Get instant responses to your medical queries with advanced AI processing.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure & Private</h3>
+                    <p>Your medical data is processed securely with privacy as our top priority.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

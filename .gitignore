@@ -1,0 +1,9 @@
+# Ignore environment variables
+.env
+
+# Ignore Python cache
+pycache/
+*.pyc
+
+# ignore Uploads
+uploads/
