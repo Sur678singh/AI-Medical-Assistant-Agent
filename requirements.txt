@@ -4,4 +4,4 @@ langgraph
 langchain
 langchain-groq
 fastapi
-easyocr
+pytesseract

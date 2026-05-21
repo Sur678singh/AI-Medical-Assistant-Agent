@@ -2,7 +2,8 @@ from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 from langgraph.graph import StateGraph,START,END
 from typing import TypedDict
-import easyocr,shutil,os,re
+import pytesseract,shutil,os,re
+from PIL import Image
 from fastapi import FastAPI,UploadFile,File,Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -38,9 +39,6 @@ class MedicalState(TypedDict):
     image_path:str
     ocr_report:str
     answer:str
-
-# used easyocr
-reader=easyocr.Reader(['en'])
 
 # ************************************ Graph functions ******************************************
 # router node functions
@@ -147,13 +145,11 @@ Guidelines:
 # ocr node function
 def ocr_text(state: MedicalState):
     image_path = state.get('image_path', '')
-
     if not image_path:
-
         return {'ocr_report': 'No image uploaded'}
-
-    result = reader.readtext(image_path,detail=0)
-    extracted_txt = " ".join(result)
+    
+    image = Image.open(image_path)
+    extracted_txt = pytesseract.image_to_string(image)
     cleaned_text = re.sub(r'[^a-zA-Z0-9.,:/()%\- ]', '',extracted_txt).strip()
 
     return {'ocr_report': cleaned_text}
