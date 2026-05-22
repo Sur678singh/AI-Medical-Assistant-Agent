@@ -4,6 +4,4 @@ langgraph
 langchain
 langchain-groq
 fastapi
-pytesseract
-pillow
 python-multipart

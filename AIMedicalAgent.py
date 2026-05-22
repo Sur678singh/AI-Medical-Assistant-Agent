@@ -2,8 +2,7 @@ from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 from langgraph.graph import StateGraph,START,END
 from typing import TypedDict
-import pytesseract,shutil,os,re
-from PIL import Image
+import shutil,os,re,requests
 from fastapi import FastAPI,UploadFile,File,Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -148,8 +147,21 @@ def ocr_text(state: MedicalState):
     if not image_path:
         return {'ocr_report': 'No image uploaded'}
     
-    image = Image.open(image_path)
-    extracted_txt = pytesseract.image_to_string(image)
+    with open(image_path, 'rb') as f:
+
+            response = requests.post('https://api.ocr.space/parse/image',
+                files={
+                    'filename': f
+                },
+
+                data={
+                    'apikey': os.getenv("OCR_API_KEY"),
+                    'language': 'eng'
+                }
+            )
+
+    result = response.json()
+    extracted_txt = result['ParsedResults'][0]['ParsedText']
     cleaned_text = re.sub(r'[^a-zA-Z0-9.,:/()%\- ]', '',extracted_txt).strip()
 
     return {'ocr_report': cleaned_text}
