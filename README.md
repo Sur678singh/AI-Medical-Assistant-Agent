@@ -50,7 +50,7 @@ The system can analyze symptoms, understand prescriptions, extract text from med
 - Python
 
 ## OCR
-- EasyOCR
+- Cloud SpaceAPI
 
 ## Frontend
 - HTML
